@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindBack</title>
+    <!-- Google Fonts & Font Awesome CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--- <marquee behavior="alternate" scrollamount="10" style="color: gold">
+      Lost Something? Report It Today | Found Something? Help It Reach Its
+      Owner!
+    </marquee> -->
+    <header class="navbar">
+      <div class="nav-left">
+        <a href="#" class="logo">
+          <span class="logo-icon"
+            ><i class="fa-solid fa-location-dot"></i
+          ></span>
+          <span class="logo-text"
+            >Find<span style="color: red">Back</span></span
+          >
+        </a>
+      </div>
+
+      <nav class="nav-center nav-links">
+        <a href="#" class="active" id="nav-home">Home</a>
+        <a href="#browse-section" id="nav-browse">Browse</a>
+        <a href="#">Track My Items</a>
+        <a href="#">AI Matches</a>
+        <a href="#">Analytics</a>
+        <a href="#">Admin</a>
+      </nav>
+
+      <div class="nav-right">
+        <button class="icon-btn moon-btn" aria-label="Dark mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="icon-btn bell-btn" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+        </button>
+        <div class="user-badge">
+          <i class="fa-solid fa-user"></i>
+          <span>Guest User</span>
+        </div>
+        <button class="btn-switch">Switch User</button>
+      </div>
+    </header>
+
+    <!-- hero section -->
+    <main class="hero">
+      <div class="hero-content">
+        <div class="engine-badge">
+          <span class="dot green-dot"></span>
+          <span class="dot purple-dot"></span>
+          <span>AI-Powered Matching Engine - Live</span>
+        </div>
+
+        <h1 class="hero-title">
+          Lost Something?<br />
+          <span class="gradient-text">We'll Find It.</span>
+        </h1>
+
+        <p class="hero-description">
+          Report lost or found items. Our Jaccard-similarity AI instantly
+          matches descriptions and surfaces the best results — no sign-up
+          required.
+        </p>
+
+        <div class="cta-group">
+          <a href="#report-section" class="btn btn-orange" id="btn-report-lost">
+            <i class="fa-solid fa-file-lines"></i>
+            Report Lost Item
+          </a>
+          <a href="#report-section" class="btn btn-teal" id="btn-report-found">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Report Found Item
+          </a>
+          <a href="#browse-section" class="btn btn-dark" id="btn-browse-items">
+            <i class="fa-solid fa-folder"></i>
+            Browse All Items
+          </a>
+          <a href="#" class="btn btn-dark">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Track My Items
+          </a>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <h2 id="stats-lost-count">0</h2>
+            <p>Items Lost</p>
+          </div>
+          <div class="stat-item">
+            <h2 id="stats-found-count">0</h2>
+            <p>Items Found</p>
+          </div>
+          <div class="stat-item">
+            <h2>0</h2>
+            <p>Reunited &#127881;</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Report Forms Section -->
+    <section id="report-section" class="report-section hidden">
+      <div class="report-container">
+        <!-- Main Form Card -->
+        <div class="form-card" id="form-card">
+          <!-- Card Top Navigation / Header -->
+          <div class="form-nav-bar">
+            <div class="form-tabs">
+              <button
+                type="button"
+                class="form-tab-btn active-lost"
+                id="tab-lost"
+              >
+                <i class="fa-solid fa-file-lines"></i>
+                Report Lost Item
+              </button>
+              <button type="button" class="form-tab-btn" id="tab-found">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Report Found Item
+              </button>
+            </div>
+            <button
+              type="button"
+              class="form-close-icon-btn"
+              id="btn-close-form"
+              title="Close and return to home"
+              aria-label="Close form"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- 1. REPORT LOST ITEM FORM -->
+          <div id="lost-form-wrapper" class="form-content-wrapper">
+            <div class="form-header">
+              <div class="form-badge badge-orange">
+                <span class="badge-dot dot-orange"></span>
+                <span>Lost Item Portal</span>
+              </div>
+              <h2 class="form-title">Report a Lost Item</h2>
+              <p class="form-subtitle">
+                Provide details about the item you lost to help us find it.
+              </p>
+            </div>
+
+            <form id="lost-form" class="report-form form-orange" novalidate>
+              <div class="form-grid">
+                <!-- Item Name -->
+                <div class="form-group">
+                  <label for="lost-item-name">
+                    <i class="fa-solid fa-tag"></i> Item Name
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lost-item-name"
+                    name="itemName"
+                    placeholder="e.g. iPhone 14 Pro, Leather Wallet"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-item-name"></span>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                  <label for="lost-category">
+                    <i class="fa-solid fa-layer-group"></i> Category
+                    <span class="req">*</span>
+                  </label>
+                  <div class="select-wrapper">
+                    <select id="lost-category" name="category" required>
+                      <option value="" disabled selected>
+                        Select a category
+                      </option>
+                      <option value="Electronics">Electronics</option>
+                      <option value="Documents">Documents</option>
+                      <option value="Accessories">Accessories</option>
+                      <option value="Bags">Bags</option>
+                      <option value="Clothing">Clothing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-chevron"></i>
+                  </div>
+                  <span class="field-error" id="err-lost-category"></span>
+                </div>
+
+                <!-- Date Lost -->
+                <div class="form-group">
+                  <label for="lost-date">
+                    <i class="fa-solid fa-calendar-days"></i> Date Lost
+                    <span class="req">*</span>
+                  </label>
+                  <input type="date" id="lost-date" name="dateLost" required />
+                  <span class="field-error" id="err-lost-date"></span>
+                </div>
+
+                <!-- Location Lost -->
+                <div class="form-group">
+                  <label for="lost-location">
+                    <i class="fa-solid fa-location-dot"></i> Location Lost
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lost-location"
+                    name="locationLost"
+                    placeholder="e.g. Central Library, 2nd Floor or Metro Line"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-location"></span>
+                </div>
+
+                <!-- Item Description (Full Width) -->
+                <div class="form-group full-width">
+                  <label for="lost-description">
+                    <i class="fa-solid fa-align-left"></i> Item Description
+                    <span class="req">*</span>
+                  </label>
+                  <textarea
+                    id="lost-description"
+                    name="description"
+                    rows="3"
+                    placeholder="Provide detailed description (brand, model, scratches, contents, serial no., etc.)"
+                    required
+                  ></textarea>
+                  <span class="field-error" id="err-lost-description"></span>
+                </div>
+
+                <!-- Color / Identifying Marks -->
+                <div class="form-group">
+                  <label for="lost-color">
+                    <i class="fa-solid fa-palette"></i> Color / Identifying
+                    Marks <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lost-color"
+                    name="colorMarks"
+                    placeholder="e.g. Space Grey with Pikachu sticker"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-color"></span>
+                </div>
+
+                <!-- Contact Name -->
+                <div class="form-group">
+                  <label for="lost-contact-name">
+                    <i class="fa-solid fa-user"></i> Contact Name
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lost-contact-name"
+                    name="contactName"
+                    placeholder="Your full name"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-contact-name"></span>
+                </div>
+
+                <!-- Email Address -->
+                <div class="form-group">
+                  <label for="lost-contact-email">
+                    <i class="fa-solid fa-envelope"></i> Email Address
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="lost-contact-email"
+                    name="contactEmail"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-contact-email"></span>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                  <label for="lost-contact-phone">
+                    <i class="fa-solid fa-phone"></i> Phone Number
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="lost-contact-phone"
+                    name="contactPhone"
+                    placeholder="e.g. +91 98765 43210"
+                    required
+                  />
+                  <span class="field-error" id="err-lost-contact-phone"></span>
+                </div>
+
+                <!-- Upload Item Image (optional) (Full Width) -->
+                <div class="form-group full-width">
+                  <label>
+                    <i class="fa-solid fa-image"></i> Upload Item Image
+                    (optional)
+                  </label>
+                  <div class="file-dropzone" id="lost-dropzone">
+                    <input
+                      type="file"
+                      id="lost-image"
+                      name="itemImage"
+                      accept="image/*"
+                      class="file-input"
+                    />
+                    <div class="dropzone-content">
+                      <div class="dropzone-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                      </div>
+                      <div class="dropzone-text">
+                        <span class="browse-link">Click to browse</span> or drag
+                        and drop image here
+                      </div>
+                      <div class="dropzone-hint">
+                        Supports PNG, JPG, JPEG, WEBP (Max 5MB)
+                      </div>
+                    </div>
+                    <div
+                      class="file-preview-bar"
+                      id="lost-preview-bar"
+                      style="display: none"
+                    >
+                      <img
+                        src=""
+                        alt="Preview"
+                        id="lost-preview-img"
+                        class="preview-thumbnail"
+                      />
+                      <div class="preview-meta">
+                        <span
+                          class="preview-filename"
+                          id="lost-preview-name"
+                        ></span>
+                        <span
+                          class="preview-filesize"
+                          id="lost-preview-size"
+                        ></span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-remove-file"
+                        id="lost-remove-file"
+                        aria-label="Remove image"
+                      >
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Buttons -->
+              <div class="form-actions">
+                <button type="button" class="btn btn-dark btn-back-home">
+                  <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </button>
+                <button type="submit" class="btn btn-orange btn-submit">
+                  <i class="fa-solid fa-paper-plane"></i> Post Lost Item
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 2. REPORT FOUND ITEM FORM -->
+          <div
+            id="found-form-wrapper"
+            class="form-content-wrapper"
+            style="display: none"
+          >
+            <div class="form-header">
+              <div class="form-badge badge-teal">
+                <span class="badge-dot dot-teal"></span>
+                <span>Found Item Portal</span>
+              </div>
+              <h2 class="form-title">Report a Found Item</h2>
+              <p class="form-subtitle">
+                Help reunite a found item with its rightful owner.
+              </p>
+            </div>
+
+            <form id="found-form" class="report-form form-teal" novalidate>
+              <div class="form-grid">
+                <!-- Item Name -->
+                <div class="form-group">
+                  <label for="found-item-name">
+                    <i class="fa-solid fa-tag"></i> Item Name
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="found-item-name"
+                    name="itemName"
+                    placeholder="e.g. HP Laptop Bag, Silver Watch"
+                    required
+                  />
+                  <span class="field-error" id="err-found-item-name"></span>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                  <label for="found-category">
+                    <i class="fa-solid fa-layer-group"></i> Category
+                    <span class="req">*</span>
+                  </label>
+                  <div class="select-wrapper">
+                    <select id="found-category" name="category" required>
+                      <option value="" disabled selected>
+                        Select a category
+                      </option>
+                      <option value="Electronics">Electronics</option>
+                      <option value="Documents">Documents</option>
+                      <option value="Accessories">Accessories</option>
+                      <option value="Bags">Bags</option>
+                      <option value="Clothing">Clothing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-chevron"></i>
+                  </div>
+                  <span class="field-error" id="err-found-category"></span>
+                </div>
+
+                <!-- Date Found -->
+                <div class="form-group">
+                  <label for="found-date">
+                    <i class="fa-solid fa-calendar-days"></i> Date Found
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    id="found-date"
+                    name="dateFound"
+                    required
+                  />
+                  <span class="field-error" id="err-found-date"></span>
+                </div>
+
+                <!-- Location Found -->
+                <div class="form-group">
+                  <label for="found-location">
+                    <i class="fa-solid fa-location-dot"></i> Location Found
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="found-location"
+                    name="locationFound"
+                    placeholder="e.g. Cafeteria Table #4 or Gate 3"
+                    required
+                  />
+                  <span class="field-error" id="err-found-location"></span>
+                </div>
+
+                <!-- Item Description (Full Width) -->
+                <div class="form-group full-width">
+                  <label for="found-description">
+                    <i class="fa-solid fa-align-left"></i> Item Description
+                    <span class="req">*</span>
+                  </label>
+                  <textarea
+                    id="found-description"
+                    name="description"
+                    rows="3"
+                    placeholder="Provide detailed description (brand, model, scratches, contents, etc.)"
+                    required
+                  ></textarea>
+                  <span class="field-error" id="err-found-description"></span>
+                </div>
+
+                <!-- Color / Identifying Marks -->
+                <div class="form-group">
+                  <label for="found-color">
+                    <i class="fa-solid fa-palette"></i> Color / Identifying
+                    Marks <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="found-color"
+                    name="colorMarks"
+                    placeholder="e.g. Black with blue zipper, Nike logo"
+                    required
+                  />
+                  <span class="field-error" id="err-found-color"></span>
+                </div>
+
+                <!-- Contact Name -->
+                <div class="form-group">
+                  <label for="found-contact-name">
+                    <i class="fa-solid fa-user"></i> Contact Name
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="found-contact-name"
+                    name="contactName"
+                    placeholder="Your full name"
+                    required
+                  />
+                  <span class="field-error" id="err-found-contact-name"></span>
+                </div>
+
+                <!-- Email Address -->
+                <div class="form-group">
+                  <label for="found-contact-email">
+                    <i class="fa-solid fa-envelope"></i> Email Address
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="found-contact-email"
+                    name="contactEmail"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <span class="field-error" id="err-found-contact-email"></span>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                  <label for="found-contact-phone">
+                    <i class="fa-solid fa-phone"></i> Phone Number
+                    <span class="req">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="found-contact-phone"
+                    name="contactPhone"
+                    placeholder="e.g. +91 98765 43210"
+                    required
+                  />
+                  <span class="field-error" id="err-found-contact-phone"></span>
+                </div>
+
+                <!-- Upload Item Image (optional) (Full Width) -->
+                <div class="form-group full-width">
+                  <label>
+                    <i class="fa-solid fa-image"></i> Upload Item Image
+                    (optional)
+                  </label>
+                  <div class="file-dropzone" id="found-dropzone">
+                    <input
+                      type="file"
+                      id="found-image"
+                      name="itemImage"
+                      accept="image/*"
+                      class="file-input"
+                    />
+                    <div class="dropzone-content">
+                      <div class="dropzone-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                      </div>
+                      <div class="dropzone-text">
+                        <span class="browse-link">Click to browse</span> or drag
+                        and drop image here
+                      </div>
+                      <div class="dropzone-hint">
+                        Supports PNG, JPG, JPEG, WEBP (Max 5MB)
+                      </div>
+                    </div>
+                    <div
+                      class="file-preview-bar"
+                      id="found-preview-bar"
+                      style="display: none"
+                    >
+                      <img
+                        src=""
+                        alt="Preview"
+                        id="found-preview-img"
+                        class="preview-thumbnail"
+                      />
+                      <div class="preview-meta">
+                        <span
+                          class="preview-filename"
+                          id="found-preview-name"
+                        ></span>
+                        <span
+                          class="preview-filesize"
+                          id="found-preview-size"
+                        ></span>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-remove-file"
+                        id="found-remove-file"
+                        aria-label="Remove image"
+                      >
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Buttons -->
+              <div class="form-actions">
+                <button type="button" class="btn btn-dark btn-back-home">
+                  <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </button>
+                <button type="submit" class="btn btn-teal btn-submit">
+                  <i class="fa-solid fa-paper-plane"></i> Post Found Item
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- SUCCESS MESSAGE DISPLAY -->
+          <div
+            id="form-success-card"
+            class="success-card"
+            style="display: none"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. BROWSE ALL ITEMS SECTION -->
+    <section id="browse-section" class="browse-section hidden">
+      <div class="browse-container">
+        <!-- Main Browse Card -->
+        <div class="browse-card">
+          <!-- Browse Header Bar -->
+          <div class="browse-header-bar">
+            <div class="browse-header-left">
+              <div class="browse-badge">
+                <span class="badge-dot dot-blue"></span>
+                <span>Community Registry</span>
+              </div>
+              <h2 class="browse-title">Browse Reported Items</h2>
+              <p class="browse-subtitle">
+                Explore items reported by users. Real-time updates as new items
+                are posted.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="form-close-icon-btn"
+              id="btn-close-browse"
+              title="Close and return to home"
+              aria-label="Close browse catalog"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Browse Toolbar (Search & Filters) -->
+          <div class="browse-toolbar">
+            <!-- Search Box -->
+            <div class="browse-search-box">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input
+                type="text"
+                id="browse-search-input"
+                placeholder="Search items by name, location, marks, contact..."
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                id="browse-search-clear"
+                class="search-clear-btn"
+                title="Clear search"
+                style="display: none"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <!-- Type Filter Pills -->
+            <div class="browse-filter-pills">
+              <button
+                type="button"
+                class="filter-pill active"
+                id="filter-pill-all"
+                data-filter="all"
+              >
+                All (<span id="count-filter-all">0</span>)
+              </button>
+              <button
+                type="button"
+                class="filter-pill pill-lost"
+                id="filter-pill-lost"
+                data-filter="lost"
+              >
+                <i class="fa-solid fa-file-lines"></i> Lost (<span
+                  id="count-filter-lost"
+                  >0</span
+                >)
+              </button>
+              <button
+                type="button"
+                class="filter-pill pill-found"
+                id="filter-pill-found"
+                data-filter="found"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i> Found (<span
+                  id="count-filter-found"
+                  >0</span
+                >)
+              </button>
+            </div>
+
+            <!-- Category Filter Dropdown -->
+            <div class="browse-category-select">
+              <div class="select-wrapper">
+                <select id="browse-category-filter">
+                  <option value="all">All Categories</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Documents">Documents</option>
+                  <option value="Accessories">Accessories</option>
+                  <option value="Bags">Bags</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Other">Other</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-chevron"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Grid / Cards Container -->
+          <div id="browse-items-grid" class="browse-grid">
+            <!-- Populated dynamically via JavaScript with submitted items -->
+          </div>
+
+          <!-- Browse Bottom Bar (Actions) -->
+          <div class="browse-footer-bar">
+            <button
+              type="button"
+              class="btn btn-dark"
+              id="btn-browse-back-home"
+            >
+              <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+            <div class="browse-footer-actions">
+              <button
+                type="button"
+                class="btn btn-orange btn-sm"
+                id="btn-browse-report-lost"
+              >
+                <i class="fa-solid fa-file-lines"></i> Report Lost Item
+              </button>
+              <button
+                type="button"
+                class="btn btn-teal btn-sm"
+                id="btn-browse-report-found"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i> Report Found Item
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript Controller -->
+    <script src="script.js"></script>
+  </body>
+</html>
